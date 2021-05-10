@@ -13,7 +13,7 @@ type idInfo struct {
 	AddressCode   int
 	Abandoned     int
 	Address       string
-	AddressTree   []string
+	AddressTree   map[string]string
 	Birthday      time.Time
 	Constellation string
 	ChineseZodiac string
@@ -55,10 +55,10 @@ func GetInfo(id string) (idInfo, error) {
 
 	// 地址信息
 	addressInfo := getAddressInfo(code["addressCode"], code["birthdayCode"])
-	var addressTree []string
-	for _, val := range addressInfo {
-		addressTree = append(addressTree, val)
-	}
+	//var addressTree []string
+	//for _, val := range addressInfo {
+	//	addressTree = append(addressTree, val)
+	//}
 
 	// 是否废弃
 	var abandoned int
@@ -83,7 +83,7 @@ func GetInfo(id string) (idInfo, error) {
 		AddressCode:   addressCode,
 		Abandoned:     abandoned,
 		Address:       addressInfo["province"] + addressInfo["city"] + addressInfo["district"],
-		AddressTree:   addressTree,
+		AddressTree:   addressInfo,
 		Birthday:      birthday,
 		Constellation: getConstellation(code["birthdayCode"]),
 		ChineseZodiac: getChineseZodiac(code["birthdayCode"]),
